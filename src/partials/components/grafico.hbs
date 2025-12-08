@@ -1,0 +1,19 @@
+<div class="comp-grafico" style="text-align: center; margin: 30px 0; page-break-inside: avoid;">
+    {{#if titulo}} 
+        <h4 style="margin-bottom: 15px; color: #444; font-family: sans-serif;">{{titulo}}</h4> 
+    {{/if}}
+    
+    {{#if imagemBase64}}
+        <img style="max-width: 100%; height: auto; border: 1px solid #eee; padding: 10px;" 
+             src="{{imagemBase64}}" 
+             alt="Gráfico" />
+    {{else}}
+        <div style="background: #fee; padding: 20px; color: red;">
+            Não foi possível renderizar o gráfico localmente.
+        </div>
+    {{/if}}
+         
+    {{#if descricao}} 
+        <p style="font-size: 10px; color: #999; margin-top: 5px;">{{descricao}}</p> 
+    {{/if}}
+</div>

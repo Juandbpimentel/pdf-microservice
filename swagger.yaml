@@ -25,10 +25,14 @@ paths:
                   type: string
                   example: "relatorio"
                   description: "Nome do arquivo .hbs na pasta templates (sem extensão)."
+                fileName:
+                  type: string
+                  example: "meu-documento-final.pdf"
+                  description: "Opcional. Nome do arquivo PDF gerado (será sanitizado e forçado .pdf)."
                 data:
                   type: object
                   description: "Objeto JSON com os dados variáveis do documento."
-                  example: 
+                  example:
                     clienteNome: "Empresa Solar LTDA"
                     valor: "1.500,00"
       responses:

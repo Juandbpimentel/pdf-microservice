@@ -1,10 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head><style>body { font-family: serif; padding: 40px; text-align: center; border: 10px solid gold; }</style></head>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Merriweather:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        @page { size: A4 landscape; margin: 0; } /* Força orientação paisagem */
+        body { margin: 0; padding: 0; font-family: 'Merriweather', serif; -webkit-print-color-adjust: exact; }
+        
+        .border-pattern {
+            width: 100vw; height: 100vh;
+            background: #fff;
+            box-sizing: border-box;
+            padding: 40px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .inner-content {
+            width: 100%; height: 100%;
+            border: 5px double #1a3c5e;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(to bottom right, #ffffff, #f0f8ff);
+        }
+        .cert-title { font-family: 'Great Vibes', cursive; font-size: 80px; color: #1a3c5e; margin: 20px 0; }
+        .cert-body { font-size: 24px; line-height: 1.6; color: #555; margin: 40px 0; }
+        .student-name { font-size: 42px; font-weight: bold; color: #000; display: block; margin: 20px 0; text-transform: uppercase; border-bottom: 1px solid #ccc; display: inline-block; padding: 0 40px;}
+        .course-title { font-weight: bold; color: #1a3c5e; }
+        .date { position: absolute; bottom: 30px; left: 40px; font-size: 14px; color: #777; }
+    </style>
+</head>
 <body>
-    {{> header}}  <br><br>
-    <h1>CERTIFICADO DE CONCLUSÃO</h1>
-    <p>Certificamos que <strong>{{alunoNome}}</strong> concluiu o curso de</p>
-    <h2>{{cursoTitulo}}</h2>
+    <div class="border-pattern">
+        <div class="inner-content">
+            {{#if logoUrl}}<img src="{{logoUrl}}" width="80" style="margin-bottom: -20px;">{{/if}}
+            
+            <h1 class="cert-title">Certificado de Conclusão</h1>
+            
+            <p class="cert-body">
+                Certificamos que, para os devidos fins,
+                <span class="student-name">{{alunoNome}}</span>
+                <br>concluiu com êxito o curso de
+                <span class="course-title">{{cursoTitulo}}</span>
+                <br>com carga horária de <strong>{{cargaHoraria}}</strong> horas.
+            </p>
+
+            {{> assinaturas assinantes=listaAssinantes }}
+            
+            <p class="date">Emitido em: {{dataAtual}} <br> Código: {{codigoValidacao}}</p>
+        </div>
+    </div>
 </body>
 </html>

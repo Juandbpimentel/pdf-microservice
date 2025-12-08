@@ -1,0 +1,19 @@
+<div class="info-grid">
+    <h3 class="grid-title">{{tituloSecao}}</h3>
+    <div class="grid-content">
+        {{#each itens}}
+        <div class="grid-item">
+            <span class="label">{{label}}:</span>
+            <span class="value">{{valor}}</span>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<style>
+    .info-grid { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #e9ecef;}
+    .grid-title { margin-top: 0; font-size: 14px; color: #0056b3; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;}
+    .grid-content { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .grid-item { font-size: 12px; }
+    .grid-item .label { font-weight: bold; color: #555; }
+</style>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: 'Helvetica', sans-serif; color: #333; padding: 40px; }
+        .content { line-height: 1.6; text-align: justify; margin: 30px 0; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    {{> header_corp }}
+
+    {{> info_grid tituloSecao="Dados do Contratante" itens=dadosCliente }}
+
+    <div class="content">
+        <h3>Objeto do Contrato</h3>
+        <p>
+            Pelo presente instrumento particular, a CONTRATADA compromete-se a prestar serviços de 
+            <strong>{{servicoDescricao}}</strong> pelo valor total de <strong>{{valorTotal}}</strong>.
+        </p>
+        <p>
+            {{textoLegal}}
+        </p>
+    </div>
+
+    {{> assinaturas assinantes=listaAssinantes }}
+
+</body>
+</html>

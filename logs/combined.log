@@ -1,0 +1,96 @@
+{"level":"info","message":"Iniciando carregamento de partials...","service":"pdf-microservice"}
+{"level":"info","message":"Conectado ao Redis com sucesso.","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: assinaturas (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\assinaturas.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: grafico (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\grafico.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: info_grid (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\info_grid.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: lista (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\lista.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: qrcode (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\qrcode.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: tabela (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\tabela.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: texto (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\texto.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header-exemplo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header-exemplo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header_corporativo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header_corporativo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Todos os partials foram processados.","service":"pdf-microservice"}
+{"level":"info","message":"Iniciando carregamento de partials...","service":"pdf-microservice"}
+{"level":"info","message":"Conectado ao Redis com sucesso.","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: assinaturas (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\assinaturas.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: grafico (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\grafico.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: info_grid (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\info_grid.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: lista (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\lista.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: qrcode (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\qrcode.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: tabela (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\tabela.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: texto (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\texto.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header-exemplo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header-exemplo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header_corporativo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header_corporativo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Todos os partials foram processados.","service":"pdf-microservice"}
+{"level":"info","message":"Iniciando processamento da requisição (Hash: fd3160d9...)","requestId":"92c2bcca-949e-4e60-9cee-ba0976363ae2","service":"pdf-microservice","templateName":"builder"}
+{"chaves":["componente","empresaNome","documentoTitulo","dataAtual"],"componente":"header_corporativo","level":"info","message":"[DEBUG] Processando seção #1:","service":"pdf-microservice","temConfig":false,"temConteudo":false}
+{"chaves":["componente","titulo","config","descricao"],"componente":"grafico","level":"info","message":"[DEBUG] Processando seção #2:","service":"pdf-microservice","temConfig":true,"temConteudo":false}
+{"level":"info","message":"Gerando PDF... (Hash: fd3160d9...)","requestId":"92c2bcca-949e-4e60-9cee-ba0976363ae2","service":"pdf-microservice","templateName":"builder"}
+{"durationMs":1238,"level":"info","message":"PDF gerado e enviado sucesso","requestId":"92c2bcca-949e-4e60-9cee-ba0976363ae2","service":"pdf-microservice","sizeBytes":80006,"templateName":"builder"}
+{"level":"info","message":"Iniciando carregamento de partials...","service":"pdf-microservice"}
+{"level":"info","message":"Conectado ao Redis com sucesso.","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: assinaturas (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\assinaturas.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: grafico (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\grafico.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: info_grid (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\info_grid.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: lista (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\lista.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: qrcode (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\qrcode.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: tabela (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\tabela.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: texto (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\texto.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header-exemplo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header-exemplo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header_corporativo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header_corporativo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Todos os partials foram processados.","service":"pdf-microservice"}
+{"level":"info","message":"Iniciando processamento da requisição (Hash: fd3160d9...)","requestId":"ff52a4ff-aad4-463b-ad9f-7db132e072ce","service":"pdf-microservice","templateName":"builder"}
+{"chaves":["componente","empresaNome","documentoTitulo","dataAtual"],"componente":"header_corporativo","level":"info","message":"[DEBUG] Processando seção #1:","service":"pdf-microservice","temConfig":false,"temConteudo":false}
+{"chaves":["componente","titulo","config","descricao"],"componente":"grafico","level":"info","message":"[DEBUG] Processando seção #2:","service":"pdf-microservice","temConfig":true,"temConteudo":false}
+{"level":"info","message":"Gerando PDF... (Hash: fd3160d9...)","requestId":"ff52a4ff-aad4-463b-ad9f-7db132e072ce","service":"pdf-microservice","templateName":"builder"}
+{"durationMs":1403,"level":"info","message":"PDF gerado e enviado sucesso","requestId":"ff52a4ff-aad4-463b-ad9f-7db132e072ce","service":"pdf-microservice","sizeBytes":80006,"templateName":"builder"}
+{"level":"info","message":"Iniciando carregamento de partials...","service":"pdf-microservice"}
+{"level":"info","message":"Conectado ao Redis com sucesso.","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: assinaturas (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\assinaturas.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: grafico (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\grafico.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: info_grid (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\info_grid.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: lista (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\lista.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: qrcode (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\qrcode.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: tabela (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\tabela.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: texto (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\texto.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header-exemplo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header-exemplo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header_corporativo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header_corporativo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Todos os partials foram processados.","service":"pdf-microservice"}
+{"level":"info","message":"Iniciando processamento da requisição (Hash: fd3160d9...)","requestId":"5b6aa1dd-ff39-4800-9885-882b3c14df8c","service":"pdf-microservice","templateName":"builder"}
+{"chaves":["componente","empresaNome","documentoTitulo","dataAtual"],"componente":"header_corporativo","level":"info","message":"[DEBUG] Processando seção #1:","service":"pdf-microservice","temConfig":false,"temConteudo":false}
+{"chaves":["componente","titulo","config","descricao"],"componente":"grafico","level":"info","message":"[DEBUG] Processando seção #2:","service":"pdf-microservice","temConfig":true,"temConteudo":false}
+{"level":"info","message":"[SUCESSO] Gráfico gerado para seção #2","service":"pdf-microservice"}
+{"level":"info","message":"Gerando PDF... (Hash: fd3160d9...)","requestId":"5b6aa1dd-ff39-4800-9885-882b3c14df8c","service":"pdf-microservice","templateName":"builder"}
+{"durationMs":1401,"level":"info","message":"PDF gerado e enviado sucesso","requestId":"5b6aa1dd-ff39-4800-9885-882b3c14df8c","service":"pdf-microservice","sizeBytes":74522,"templateName":"builder"}
+{"level":"info","message":"Iniciando processamento da requisição (Hash: 6a8d50ea...)","requestId":"3966895e-d90a-4eba-b546-f6d8b4310708","service":"pdf-microservice","templateName":"builder"}
+{"chaves":["componente","margemInferior","empresaNome","documentoTitulo","referencia","dataAtual","logoUrl"],"componente":"header_corporativo","level":"info","message":"[DEBUG] Processando seção #1:","service":"pdf-microservice","temConfig":false,"temConteudo":false}
+{"chaves":["componente","margemInferior","tituloSecao","itens"],"componente":"info_grid","level":"info","message":"[DEBUG] Processando seção #2:","service":"pdf-microservice","temConfig":false,"temConteudo":false}
+{"chaves":["componente","margemInferior","titulo","conteudo","alinhamento","tamanhoFonte"],"componente":"texto","level":"info","message":"[DEBUG] Processando seção #3:","service":"pdf-microservice","temConfig":false,"temConteudo":true}
+{"chaves":["componente","titulo","config","descricao"],"componente":"grafico","level":"info","message":"[DEBUG] Processando seção #4:","service":"pdf-microservice","temConfig":true,"temConteudo":false}
+{"level":"info","message":"[SUCESSO] Gráfico gerado para seção #4","service":"pdf-microservice"}
+{"chaves":["componente","titulo","conteudo","margemInferior"],"componente":"texto","level":"info","message":"[DEBUG] Processando seção #5:","service":"pdf-microservice","temConfig":false,"temConteudo":true}
+{"chaves":["componente","titulo","config"],"componente":"grafico","level":"info","message":"[DEBUG] Processando seção #6:","service":"pdf-microservice","temConfig":true,"temConteudo":false}
+{"level":"info","message":"[SUCESSO] Gráfico gerado para seção #6","service":"pdf-microservice"}
+{"chaves":["componente","margemInferior","titulo","colunas","linhas"],"componente":"tabela","level":"info","message":"[DEBUG] Processando seção #7:","service":"pdf-microservice","temConfig":false,"temConteudo":false}
+{"chaves":["componente","margemInferior","titulo","ordenada","itens"],"componente":"lista","level":"info","message":"[DEBUG] Processando seção #8:","service":"pdf-microservice","temConfig":false,"temConteudo":false}
+{"chaves":["componente","titulo","conteudo","legenda","alinhamento"],"componente":"qrcode","level":"info","message":"[DEBUG] Processando seção #9:","service":"pdf-microservice","temConfig":false,"temConteudo":true}
+{"level":"info","message":"[SUCESSO] QR Code gerado para seção #9","service":"pdf-microservice"}
+{"chaves":["componente","margemInferior","assinantes"],"componente":"assinaturas","level":"info","message":"[DEBUG] Processando seção #10:","service":"pdf-microservice","temConfig":false,"temConteudo":false}
+{"level":"info","message":"Gerando PDF... (Hash: 6a8d50ea...)","requestId":"3966895e-d90a-4eba-b546-f6d8b4310708","service":"pdf-microservice","templateName":"builder"}
+{"durationMs":1696,"level":"info","message":"PDF gerado e enviado sucesso","requestId":"3966895e-d90a-4eba-b546-f6d8b4310708","service":"pdf-microservice","sizeBytes":267691,"templateName":"builder"}
+{"error":"Socket closed unexpectedly","level":"error","message":"Erro no Client Redis","service":"pdf-microservice"}
+{"error":"Socket closed unexpectedly","level":"error","message":"Erro no Client Redis","service":"pdf-microservice"}
+{"error":"Socket closed unexpectedly","level":"error","message":"Erro no Client Redis","service":"pdf-microservice"}
+{"error":"Socket closed unexpectedly","level":"error","message":"Erro no Client Redis","service":"pdf-microservice"}
+{"level":"info","message":"Iniciando carregamento de partials...","service":"pdf-microservice"}
+{"level":"info","message":"Conectado ao Redis com sucesso.","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: assinaturas (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\assinaturas.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: grafico (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\grafico.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: info_grid (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\info_grid.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: lista (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\lista.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: qrcode (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\qrcode.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: tabela (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\tabela.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: texto (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\components\\texto.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header-exemplo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header-exemplo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Partial carregado: header_corporativo (de D:\\git\\faculdade\\pdf-microservice\\src\\partials\\headers\\header_corporativo.hbs)","service":"pdf-microservice"}
+{"level":"info","message":"Todos os partials foram processados.","service":"pdf-microservice"}

@@ -1,0 +1,17 @@
+<div class="comp-lista" style="margin-bottom: 20px;">
+    {{#if titulo}} <h4 style="margin-bottom: 10px; color: #444;">{{titulo}}</h4> {{/if}}
+    
+    {{#if ordenada}}
+        <ol style="padding-left: 20px;">
+            {{#each itens}}
+                <li style="margin-bottom: 5px;">{{this}}</li>
+            {{/each}}
+        </ol>
+    {{else}}
+        <ul style="padding-left: 20px; list-style-type: square;">
+            {{#each itens}}
+                <li style="margin-bottom: 5px; color: #555;">{{this}}</li>
+            {{/each}}
+        </ul>
+    {{/if}}
+</div>

@@ -1,0 +1,23 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: pdf-microservice-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+          - redis_data:/data
+
+  # A Interface Gráfica
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-gui
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:

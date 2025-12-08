@@ -1,0 +1,26 @@
+<div class="signatures-container">
+    {{#each assinantes}}
+    <div class="signature-box">
+        <div class="line"></div>
+        <p class="name"><strong>{{nome}}</strong></p>
+        <p class="role">{{cargo}}</p>
+        {{#if documento}}
+            <p class="doc-id">CPF/CNPJ: {{documento}}</p>
+        {{/if}}
+    </div>
+    {{/each}}
+</div>
+
+<style>
+    .signatures-container { 
+        display: flex; 
+        justify-content: space-around; 
+        margin-top: 80px; 
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .signature-box { text-align: center; min-width: 200px; margin-bottom: 20px; }
+    .signature-box .line { border-top: 1px solid #000; width: 100%; margin-bottom: 10px; }
+    .signature-box p { margin: 2px 0; font-size: 12px; }
+    .signature-box .name { text-transform: uppercase; }
+</style>

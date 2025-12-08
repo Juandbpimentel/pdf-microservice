@@ -1,0 +1,21 @@
+<div class="comp-tabela" style="margin-bottom: 25px;">
+    {{#if titulo}} <h3 style="text-align: center; color: #333;">{{titulo}}</h3> {{/if}}
+    
+    <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+        <thead>
+            <tr style="background-color: #0056b3; color: white;">
+                {{#each colunas}}
+                    <th style="padding: 10px; text-align: left; border: 1px solid #004494;">{{this}}</th>
+                {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each linhas}}
+                <tr style="background-color: {{#if @even}}#f2f2f2{{else}}white{{/if}};">
+                    {{#each this}} <td style="padding: 8px; border: 1px solid #ddd;">{{this}}</td>
+                    {{/each}}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

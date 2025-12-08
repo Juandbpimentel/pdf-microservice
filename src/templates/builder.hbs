@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: 'Helvetica', sans-serif; color: #333; padding: 40px; }
+        /* Classes utilitárias que podem ser usadas nos componentes */
+        .spacer { height: 20px; }
+        .text-content { line-height: 1.6; text-align: justify; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    
+    {{#each secoes}}
+        <div class="section-wrapper" style="margin-bottom: {{margemInferior}}px;">
+            {{> (lookup . 'componente') . }}
+        </div>
+    {{/each}}
+
+</body>
+</html>

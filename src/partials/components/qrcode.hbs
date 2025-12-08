@@ -1,0 +1,15 @@
+<div class="comp-qrcode" style="text-align: {{#if alinhamento}}{{alinhamento}}{{else}}center{{/if}}; margin: 20px 0;">
+    {{#if titulo}}
+        <p style="font-weight: bold; margin-bottom: 5px; font-size: 12px; color: #333;">{{titulo}}</p>
+    {{/if}}
+    
+    {{#if imagemBase64}}
+        <img src="{{imagemBase64}}" alt="QR Code" style="width: 150px; height: 150px;" />
+    {{else}}
+        <p style="color: red;">Erro ao gerar QR Code</p>
+    {{/if}}
+    
+    {{#if legenda}}
+        <p style="font-size: 10px; color: #777; margin-top: 5px;">{{legenda}}</p>
+    {{/if}}
+</div>
