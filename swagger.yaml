@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: PDF Generator Microservice (Mini-LPS)
+  description: Serviço reutilizável de geração de documentos. Suporta variabilidade via templates (Handlebars) e dados JSON.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Servidor Local
+paths:
+  /generate-pdf:
+    post:
+      summary: Gera PDF dinâmico
+      description: Recebe o nome do template e os dados em JSON, compila o HTML e retorna o PDF. Implementa padrão Retry para resiliência.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - templateName
+                - data
+              properties:
+                templateName:
+                  type: string
+                  example: "relatorio"
+                  description: "Nome do arquivo .hbs na pasta templates (sem extensão)."
+                data:
+                  type: object
+                  description: "Objeto JSON com os dados variáveis do documento."
+                  example: 
+                    clienteNome: "Empresa Solar LTDA"
+                    valor: "1.500,00"
+      responses:
+        200:
+          description: PDF gerado com sucesso
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: Dados inválidos ou faltando
+        404:
+          description: Template não encontrado
+        500:
+          description: Erro interno (após 3 tentativas de retry)

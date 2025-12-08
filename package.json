@@ -1,0 +1,31 @@
+{
+  "name": "pdf-microservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabrielAlves-Dev/pdf-microservice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/GabrielAlves-Dev/pdf-microservice/issues"
+  },
+  "homepage": "https://github.com/GabrielAlves-Dev/pdf-microservice#readme",
+  "dependencies": {
+    "async-retry": "^1.3.3",
+    "express": "^5.2.1",
+    "fs-extra": "^11.3.2",
+    "handlebars": "^4.7.8",
+    "puppeteer": "^24.32.1",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
+  }
+}
