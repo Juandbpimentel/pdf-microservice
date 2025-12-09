@@ -1,0 +1,33 @@
+{
+  "templateName": "builder",
+  "fileName": "builder-exemplo.pdf",
+  "data": {
+    "layout": {
+      "margemCima": 20,
+      "margemBaixo": 20,
+      "margemEsquerda": 15,
+      "margemDireita": 15
+    },
+    "secoes": [
+      {
+        "componente": "texto",
+        "titulo": "Olá, mundo",
+        "conteudo": "Exemplo mínimo usando o template builder."
+      },
+      {
+        "componente": "tabela",
+        "titulo": "Itens",
+        "colunas": ["Item", "Valor"],
+        "linhas": [
+          ["Item A", "R$ 10,00"],
+          ["Item B", "R$ 20,00"]
+        ]
+      },
+      {
+        "componente": "qrcode",
+        "titulo": "Pagamento",
+        "conteudo": "https://example.com/pagamento/123"
+      }
+    ]
+  }
+}

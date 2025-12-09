@@ -3,16 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        body { font-family: 'Helvetica', sans-serif; color: #333; padding: 40px; }
-        /* Classes utilitárias que podem ser usadas nos componentes */
+        /* --- CONFIGURAÇÃO DINÂMICA DE MARGENS --- */
+        @page {
+            /* Se vier no JSON, usa. Se não, aplica 20mm padrão */
+            margin-top: {{#if layout.margemCima}}{{layout.margemCima}}{{else}}20{{/if}}mm;
+            margin-bottom: {{#if layout.margemBaixo}}{{layout.margemBaixo}}{{else}}20{{/if}}mm;
+            margin-left: {{#if layout.margemEsquerda}}{{layout.margemEsquerda}}{{else}}20{{/if}}mm;
+            margin-right: {{#if layout.margemDireita}}{{layout.margemDireita}}{{else}}20{{/if}}mm;
+        }
+
+        body { 
+            font-family: 'Helvetica', sans-serif; 
+            color: #333; 
+            margin: 0;   /* Remove margem padrão do navegador */
+            padding: 0;  /* Removemos o padding fixo de 40px para respeitar a @page */
+        }
+
+        /* Classes Utilitárias */
         .spacer { height: 20px; }
         .text-content { line-height: 1.6; text-align: justify; margin-bottom: 20px; }
+
+        /* Controle de Quebra de Página */
+        .no-break { page-break-inside: avoid; break-inside: avoid; }
+        .force-break { page-break-before: always; break-before: page; }
+        
+        table { page-break-inside: auto; }
+        tr { page-break-inside: avoid; page-break-after: auto; }
+        p { orphans: 3; widows: 3; }
     </style>
 </head>
 <body>
     
     {{#each secoes}}
-        <div class="section-wrapper" style="margin-bottom: {{margemInferior}}px;">
+        <div class="section-wrapper no-break {{#if quebraPagina}}force-break{{/if}}" 
+             style="margin-bottom: {{margemInferior}}px;">
             {{> (lookup . 'componente') . }}
         </div>
     {{/each}}

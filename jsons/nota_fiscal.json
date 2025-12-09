@@ -1,0 +1,37 @@
+{
+  "templateName": "nota_fiscal",
+  "fileName": "nota-fiscal-exemplo.pdf",
+  "data": {
+    "empresaNome": "ACME Serviços",
+    "documentoTitulo": "Nota Fiscal / Comprovante",
+    "referencia": "NF-2024-199",
+    "emitente": [
+      { "label": "Razão Social", "valor": "ACME Serviços LTDA" },
+      { "label": "CNPJ", "valor": "12.345.678/0001-99" }
+    ],
+    "destinatario": [
+      { "label": "Cliente", "valor": "João Silva" },
+      { "label": "Documento", "valor": "123.456.789-00" }
+    ],
+    "itens": [
+      {
+        "descricao": "Serviço de Consultoria",
+        "quantidade": "1",
+        "valorUnitario": "R$ 2.000,00",
+        "subtotal": "R$ 2.000,00"
+      }
+    ],
+    "totais": {
+      "subtotal": "R$ 2.000,00",
+      "impostos": "R$ 200,00",
+      "total": "R$ 2.200,00"
+    },
+    "pagamento": {
+      "forma": "PIX",
+      "status": "Pago",
+      "pixCodigo": "000201010212...6304ABCD",
+      "pixQrCodeDataUrl": "data:image/png;base64,SEU_QR_CODE_AQUI"
+    },
+    "observacoes": "Obrigado pela preferência!"
+  }
+}

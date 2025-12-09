@@ -14,6 +14,11 @@ const prodFormat = winston.format.combine(
   winston.format.json()
 );
 
+const fileFormat = winston.format.combine(
+  winston.format.timestamp(),
+  winston.format.json()
+);
+
 let transports = [];
 
 if (process.env.NODE_ENV === "production") {
@@ -30,11 +35,11 @@ if (process.env.NODE_ENV === "production") {
     new winston.transports.File({
       filename: "logs/error.log",
       level: "error",
-      format: winston.format.json(),
+      format: fileFormat,
     }),
     new winston.transports.File({
       filename: "logs/combined.log",
-      format: winston.format.json(),
+      format: fileFormat,
     })
   );
 }

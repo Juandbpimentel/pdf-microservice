@@ -1,0 +1,15 @@
+{
+  "templateName": "certificado",
+  "fileName": "certificado-exemplo.pdf",
+  "data": {
+    "logoUrl": "../",
+    "alunoNome": "Maria Souza",
+    "cursoTitulo": "Formação em Data Science",
+    "cargaHoraria": "40h",
+    "codigoValidacao": "CERT-2024-001",
+    "listaAssinantes": [
+      { "nome": "Coordenador", "cargo": "Coordenação Acadêmica" },
+      { "nome": "Diretora", "cargo": "Diretora" }
+    ]
+  }
+}

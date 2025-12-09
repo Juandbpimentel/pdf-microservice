@@ -1,0 +1,141 @@
+{
+  "templateName": "builder",
+  "fileName": "DocumentoTeste",
+  "data": {
+    "secoes": [
+      {
+        "componente": "header_corporativo",
+        "margemInferior": 20,
+        "empresaNome": "NEXUS TECNOLOGIA GLOBAL",
+        "documentoTitulo": "RELATÓRIO ANUAL DE PERFORMANCE 2024",
+        "referencia": "REL-2024-FINAL",
+        "dataAtual": "08/12/2025",
+        "logoUrl": "https://cdn-icons-png.flaticon.com/512/2331/2331966.png"
+      },
+      {
+        "componente": "info_grid",
+        "margemInferior": 30,
+        "tituloSecao": "Resumo do Projeto",
+        "itens": [
+          { "label": "Cliente", "valor": "Grupo Financeiro Alpha" },
+          { "label": "Gerente Responsável", "valor": "Carlos Mendes" },
+          { "label": "Status", "valor": "Concluído" },
+          { "label": "Budget Total", "valor": "R$ 1.500.000,00" }
+        ]
+      },
+      {
+        "componente": "texto",
+        "margemInferior": 20,
+        "titulo": "1. Visão Geral",
+        "conteudo": "O ano fiscal de 2024 representou um marco histórico para a operação. Atingimos <b>125% da meta</b> estipulada no Q1, com destaque para a redução de custos operacionais (OpEx) e aumento da eficiência energética dos servidores.",
+        "alinhamento": "justify",
+        "tamanhoFonte": 12
+      },
+      {
+        "componente": "grafico",
+        "titulo": "Evolução da Receita Trimestral (em Milhões)",
+        "config": {
+          "type": "bar",
+          "data": {
+            "labels": ["Q1", "Q2", "Q3", "Q4"],
+            "datasets": [
+              {
+                "label": "Receita 2024",
+                "data": [3.5, 4.2, 5.8, 6.1],
+                "backgroundColor": "rgba(54, 162, 235, 0.7)",
+                "borderColor": "rgba(54, 162, 235, 1)",
+                "borderWidth": 1
+              },
+              {
+                "label": "Meta",
+                "type": "line",
+                "data": [3.0, 4.0, 5.0, 5.5],
+                "borderColor": "#ff6384",
+                "borderWidth": 2,
+                "fill": false,
+                "tension": 0.4
+              }
+            ]
+          },
+          "options": {
+            "plugins": { "legend": { "position": "bottom" } }
+          }
+        },
+        "descricao": "O gráfico combina barras (realizado) com linha (meta), demonstrando superação consistente."
+      },
+      {
+        "componente": "texto",
+        "titulo": "2. Detalhamento Técnico",
+        "conteudo": "Abaixo apresentamos a distribuição dos incidentes técnicos resolvidos por categoria. Note que a categoria 'Infraestrutura' teve a maior queda após a migração para a nuvem.",
+        "margemInferior": 10
+      },
+      {
+        "componente": "grafico",
+        "titulo": "Distribuição de Incidentes (Doughnut Chart)",
+        "config": {
+          "type": "doughnut",
+          "data": {
+            "labels": ["Software", "Hardware", "Rede", "Segurança"],
+            "datasets": [
+              {
+                "data": [45, 15, 25, 15],
+                "backgroundColor": ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
+                "hoverOffset": 4
+              }
+            ]
+          }
+        }
+      },
+      {
+        "componente": "tabela",
+        "margemInferior": 20,
+        "titulo": "Top 5 Despesas Operacionais",
+        "colunas": [
+          "Centro de Custo",
+          "Responsável",
+          "Valor (R$)",
+          "% do Total"
+        ],
+        "linhas": [
+          ["Licenças de Software", "TI Corporativa", "250.000", "35%"],
+          ["Servidores Cloud (AWS)", "Infraestrutura", "180.000", "25%"],
+          ["Consultoria Externa", "RH", "90.000", "12%"],
+          ["Marketing Digital", "Marketing", "85.000", "11%"],
+          ["Logística", "Operações", "50.000", "7%"]
+        ]
+      },
+      {
+        "componente": "lista",
+        "margemInferior": 20,
+        "titulo": "Próximos Passos (Q1 2025)",
+        "ordenada": false,
+        "itens": [
+          "Iniciar migração do banco de dados legado para PostgreSQL.",
+          "Implementar autenticação via MFA para todos os colaboradores.",
+          "Renegociar contratos com fornecedores de hardware.",
+          "Expandir equipe de desenvolvimento (5 novas vagas)."
+        ]
+      },
+      {
+        "componente": "qrcode",
+        "titulo": "Autenticidade Digital",
+        "conteudo": "https://nexus-global.com/validar-doc?hash=abc-123-xyz",
+        "legenda": "Aponte a câmera do celular para validar este documento na Blockchain.",
+        "alinhamento": "center"
+      },
+      {
+        "componente": "assinaturas",
+        "margemInferior": 0,
+        "assinantes": [
+          { "nome": "Gabriel Alves", "cargo": "Chief Technology Officer" },
+          { "nome": "Juan Pimentel", "cargo": "Diretor de Operações" },
+          {
+            "nome": "Auditores Independentes",
+            "cargo": "Validação Externa",
+            "documento": "CRC 12345/O"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "templateName": "relatorio",
+  "fileName": "relatorio-exemplo.pdf",
+  "data": {
+    "empresaNome": "Minha Empresa",
+    "documentoTitulo": "Relatório Financeiro",
+    "referencia": "2024-Q4",
+    "logoUrl": "https://via.placeholder.com/120x60.png",
+    "dadosCliente": [{ "label": "Cliente", "valor": "Empresa Solar" }],
+    "lancamentos": [
+      {
+        "data": "2024-10-01",
+        "descricao": "Serviço A",
+        "valor": "R$ 1.000,00"
+      },
+      { "data": "2024-10-10", "descricao": "Serviço B", "valor": "R$ 2.500,00" }
+    ],
+    "valorTotal": "R$ 3.500,00",
+    "statusTexto": "Saldo consolidado",
+    "corStatus": "#0056b3"
+  }
+}

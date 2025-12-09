@@ -8,11 +8,11 @@ const stringify = require("fast-json-stable-stringify"); // Novo
 const crypto = require("crypto"); // Nativo do Node.js
 const QRCode = require("qrcode");
 const { ChartJSNodeCanvas } = require("chartjs-node-canvas");
-const logger = require("./src/logger");
+const logger = require("./libs/logger");
 
 // --- CONFIGURAÇÃO DAS PASTAS ---
-const TEMPLATES_DIR = path.join(__dirname, "src", "templates");
-const PARTIALS_DIR = path.join(__dirname, "src", "partials");
+const TEMPLATES_DIR = path.join(__dirname, "templates");
+const PARTIALS_DIR = path.join(__dirname, "partials");
 
 // --- CONFIGURAÇÃO DO GERADOR DE GRÁFICOS ---
 const width = 800;

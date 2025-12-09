@@ -1,0 +1,21 @@
+{
+  "templateName": "contrato",
+  "fileName": "contrato-exemplo.pdf",
+  "data": {
+    "empresaNome": "ACME Serviços",
+    "documentoTitulo": "Contrato de Prestação de Serviços",
+    "referencia": "CT-2024-01",
+    "logoUrl": "https://via.placeholder.com/120x60.png",
+    "dadosCliente": [
+      { "label": "Cliente", "valor": "João Silva" },
+      { "label": "CPF", "valor": "123.456.789-00" }
+    ],
+    "servicoDescricao": "Serviço mensal de suporte técnico.",
+    "valorTotal": "R$ 1.200,00",
+    "textoLegal": "<p>As partes concordam com os termos acima.</p>",
+    "listaAssinantes": [
+      { "nome": "Representante ACME", "cargo": "Diretor" },
+      { "nome": "João Silva", "cargo": "Cliente" }
+    ]
+  }
+}

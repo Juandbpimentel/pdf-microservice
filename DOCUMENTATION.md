@@ -58,22 +58,63 @@ Use `templateName` com o nome do arquivo sem extensão. Cada template aceita cam
 - Espera `data.secoes` como array; cada item deve ter:
   - `componente`: nome do partial em `src/partials/components` (ex.: `texto`, `tabela`, `grafico`, `qrcode`, `lista`, `info_grid`, `assinaturas`).
   - Demais propriedades dependem do componente escolhido (ver seção "Componentes").
-  - Opcional `margemInferior` para espaçamento da seção.
+  - `margemInferior` (number, opcional): espaçamento em px aplicado no `margin-bottom` da seção; default 0.
+  - `quebraPagina` (boolean, opcional): quando `true`, força quebra de página antes da seção (`page-break-before`).
+- Controle de margens da página via `data.layout` (valores em **mm**; default 20mm se omitido):
+  - `layout.margemCima`, `layout.margemBaixo`, `layout.margemEsquerda`, `layout.margemDireita`.
+  - Se não enviados, o builder aplica 20mm em cada lado; o `body` zera `margin`/`padding` para respeitar a margem do `@page`.
+- Exemplo JSON: [`jsons/builder.json`](jsons/builder.json).
 
 ### `certificado`
 
-- Campos principais: `logoUrl`, `alunoNome`, `cursoTitulo`, `cargaHoraria`, `codigoValidacao`, `dataAtual` (auto preenchido no controller), `listaAssinantes` (ver `assinaturas`).
-- Layout em paisagem com borda dupla e tipografia personalizada.
+- Campos:
+  - `logoUrl` (string, opcional): URL da logo.
+  - `alunoNome` (string, obrigatório): nome do aluno.
+  - `cursoTitulo` (string, obrigatório): título do curso.
+  - `cargaHoraria` (string/number, obrigatório): carga horária exibida.
+  - `codigoValidacao` (string, opcional): código mostrado no rodapé.
+  - `dataAtual` (string, auto): preenchido pelo controller.
+  - `listaAssinantes` (array, obrigatório): ver componente `assinaturas`.
+- Layout: paisagem (A4), borda dupla, tipografia customizada.
+- Exemplo JSON: [`jsons/certificado.json`](jsons/certificado.json).
 
 ### `contrato`
 
 - Inclui cabeçalho corporativo (`header_corp`).
-- Campos: `empresaNome`, `documentoTitulo`, `referencia`, `logoUrl`; `dadosCliente` (para `info_grid`), `servicoDescricao`, `valorTotal`, `textoLegal`, `listaAssinantes`.
+- Campos:
+  - `empresaNome`, `documentoTitulo`, `referencia`, `logoUrl` (strings): usados no header.
+  - `dadosCliente` (array): itens `{ label, valor }` para `info_grid`.
+  - `servicoDescricao` (string): descrição do objeto do contrato.
+  - `valorTotal` (string): valor pactuado.
+  - `textoLegal` (string): corpo legal do contrato (HTML permitido).
+  - `listaAssinantes` (array): ver `assinaturas`.
+- Exemplo JSON: [`jsons/contrato.json`](jsons/contrato.json).
 
 ### `relatorio`
 
 - Inclui cabeçalho corporativo (`header_corp`).
-- Campos: `empresaNome`, `documentoTitulo`, `referencia`, `logoUrl`; `dadosCliente` (para `info_grid`); `lancamentos` (array `{ data, descricao, valor }`); `valorTotal`, `statusTexto`, `corStatus` (define cor do destaque).
+- Campos:
+  - `empresaNome`, `documentoTitulo`, `referencia`, `logoUrl` (strings): usados no header.
+  - `dadosCliente` (array): itens `{ label, valor }` para `info_grid`.
+  - `lancamentos` (array): itens `{ data, descricao, valor }` usados na tabela principal.
+  - `valorTotal` (string): valor consolidado.
+  - `statusTexto` (string): texto auxiliar no resumo.
+  - `corStatus` (string): cor CSS aplicada no box de total.
+- Exemplo JSON: [`jsons/relatorio.json`](jsons/relatorio.json).
+
+### `nota_fiscal`
+
+- Usa o cabeçalho corporativo (`header_corp`).
+- Campos esperados em `data`:
+  - `emitente` (array): itens `{ label, valor }` (ex.: Razão Social, CNPJ, Endereço).
+  - `destinatario` (array): itens `{ label, valor }` (ex.: Cliente, CPF/CNPJ, Contato).
+  - `itens` (array): itens `{ descricao, quantidade, valorUnitario, subtotal }` já formatados como strings/valores finais.
+  - `totais` (object): `{ subtotal, desconto?, frete?, impostos?, total }` — não há cálculo automático no template.
+  - `pagamento` (object): `{ forma, vencimento?, status?, pixCodigo?, pixQrCodeDataUrl? }`.
+    - `pixQrCodeDataUrl` (string, opcional): data URL da imagem QR; gere no cliente se quiser exibir.
+  - `observacoes` (string, opcional): observações finais.
+  - `dataAtual` (string, auto): preenchido pelo controller.
+- Exemplo JSON: [`jsons/nota_fiscal.json`](jsons/nota_fiscal.json).
 
 ## Componentes (`src/partials/components`)
 
@@ -152,31 +193,29 @@ Use em `builder` via `componente` ou diretamente nos templates dedicados.
 
 ## Exemplo de Requisição (cURL)
 
+Exemplo simples inline (builder):
+
 ```bash
 curl -X POST http://localhost:3000/generate-pdf \
   -H "Content-Type: application/json" \
-  -o relatorio.pdf \
+  -o exemplo.pdf \
   -d '{
-    "templateName": "relatorio",
-    "fileName": "relatorio-financeiro-q4.pdf",
+    "templateName": "builder",
     "data": {
-      "empresaNome": "Minha Empresa",
-      "documentoTitulo": "Relatório Financeiro",
-      "referencia": "2024Q4",
-      "dadosCliente": [
-        {"label": "Cliente", "valor": "Empresa Solar"},
-        {"label": "Email", "valor": "contato@solar.tech"}
-      ],
-      "lancamentos": [
-        {"data": "2024-10-01", "descricao": "Serviço A", "valor": "1.000,00"},
-        {"data": "2024-10-10", "descricao": "Serviço B", "valor": "2.500,00"}
-      ],
-      "valorTotal": "3.500,00",
-      "statusTexto": "Saldo consolidado",
-      "corStatus": "#0056b3"
+      "secoes": [
+        { "componente": "texto", "conteudo": "Olá, mundo!" }
+      ]
     }
   }'
 ```
+
+Exemplos completos por template (use `-d @jsons/<arquivo>.json`):
+
+- `builder`: [`jsons/builder.json`](jsons/builder.json)
+- `certificado`: [`jsons/certificado.json`](jsons/certificado.json)
+- `contrato`: [`jsons/contrato.json`](jsons/contrato.json)
+- `relatorio`: [`jsons/relatorio.json`](jsons/relatorio.json)
+- `nota_fiscal`: [`jsons/nota_fiscal.json`](jsons/nota_fiscal.json)
 
 ## Dependências de Infraestrutura
 
