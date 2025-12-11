@@ -40,7 +40,7 @@ Microserviço escolhido para o Trabalho 2 de Reuso de Software (UFC Quixadá). I
 
 ## Mais detalhes
 
-Consulte `DOCUMENTATION.md` para payloads completos, propriedades dos componentes/templates, variáveis de ambiente e exemplos adicionais.
+Consulte [`DOCUMENTATION.md`](./DOCUMENTATION.md) para payloads completos, propriedades dos componentes/templates, variáveis de ambiente e exemplos adicionais.
 
 ## Autores
 
