@@ -4,8 +4,25 @@ const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 const controller = require("./src/controller");
 
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+  ? process.env.ALLOWED_ORIGINS.split(',') 
+  : [];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Acesso bloqueado por CORS policy'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
 const app = express();
 app.use(express.json());
+app.use(cors(corsOptions));
 
 try {
   const swaggerDocument = YAML.load("./swagger.yaml");
