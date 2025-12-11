@@ -217,7 +217,19 @@ module.exports = {
       .digest("hex");
     const lockKey = `lock:${hash}`;
 
+    const isLocked = await redisClient.get(lockKey);
+
+    if ( isLocked){
+      log.warn(`Requisição duplicada bloqueada`, {hash});
+      return res.status(429).json({
+        error: "Esta requisição já está sendo processada. Aguarde.",
+        retryAfter: 5,
+      })
+    }
+    
     try {
+      await redisClient.set(lockKey,"processing",{EX:30});
+      
       log.info(
         `Iniciando processamento da requisição (Hash: ${hash.substring(
           0,
@@ -227,19 +239,6 @@ module.exports = {
       // 2. VERIFICAÇÃO DE LOCK (REDIS)
       // Tenta pegar o lock. Se existir, retorna erro de concorrência.
       // TTL de 30s evita deadlocks se o servidor cair durante o processo.
-
-      const isLocked = await redisClient.get(lockKey);
-
-      if (isLocked) {
-        log.warn(`Requisição duplicada bloqueada`, { hash });
-        return res.status(429).json({
-          error: "Esta requisição já está sendo processada. Aguarde.",
-          retryAfter: 5,
-        });
-      }
-
-      // Define o lock
-      await redisClient.set(lockKey, "processing", { EX: 30 });
 
       log.debug(
         `Iniciando pré-processamento de dados (QR/Gráficos) para: ${templateName}`
