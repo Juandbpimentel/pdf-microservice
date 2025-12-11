@@ -19,7 +19,7 @@ try {
     console.log(`Swagger configurado para: ${process.env.PUBLIC_API_URL}`)
   }
   
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 } catch (e) {
   console.log("Swagger não configurado ou arquivo não encontrado.");
 }
