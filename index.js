@@ -16,9 +16,7 @@ try {
         description: "Servidor de Produção (Render)"
       }
     ];
-    const urlObj = new URL(process.env.PUBLIC_URL_API);
-    swaggerDocument.host = urlObj.host;
-    swaggerDocument.schemes = [urlObj.protocol.replace(":","")];
+    console.log(`Swagger configurado para: ${process.env.PUBLIC_API_URL}`)
   }
   
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
