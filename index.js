@@ -88,6 +88,18 @@ app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.use(cors(corsOptions));
 app.use(express.static("public")); // Serve arquivos estáticos do frontend
 
+// Debug middleware: logs request method, path and origin when DEBUG_CORS=1
+if (process.env.DEBUG_CORS === "1" || process.env.DEBUG_CORS === "true") {
+  app.use((req, res, next) => {
+    console.log(
+      `[CORS DEBUG] ${req.method} ${req.path} - Origin: ${
+        req.headers.origin || "undefined"
+      }`
+    );
+    next();
+  });
+}
+
 try {
   const serverUrl = process.env.PUBLIC_API_URL;
 
@@ -120,6 +132,16 @@ app.get("/api-docs.json", (req, res) => {
 });
 
 app.post("/generate-pdf", controller.generatePdf);
+
+// Debug endpoint to inspect headers and origin
+app.get("/debug/origin", (req, res) => {
+  res.json({
+    origin: req.headers.origin || null,
+    headers: req.headers,
+    method: req.method,
+    path: req.path,
+  });
+});
 
 // Endpoint para upload de imagens (multipart/form-data)
 const fs = require("fs");
