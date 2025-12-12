@@ -6,38 +6,81 @@ const controller = require("./src/controller");
 const cors = require("cors");
 const swaggerDocument = YAML.load("./swagger.yaml");
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",")
-      .map((o) => o.trim())
-      .filter(Boolean)
-  : [];
-const allowAllOrigins =
-  process.env.ALLOWED_ORIGINS === "*" || allowedOrigins.length === 0;
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Log origin to help debugging CORS issues
-    console.log("CORS check for origin:", origin);
-    if (!origin || allowAllOrigins) {
-      callback(null, true);
-      return;
-    }
-    // Allow exact matches and allow if PUBLIC_API_URL matches (swagger served from same host)
-    const publicUrl = process.env.PUBLIC_API_URL;
-    if (
-      allowedOrigins.includes(origin) ||
-      (publicUrl && origin === publicUrl) ||
-      allowedOrigins.some((o) => origin.endsWith(o))
-    ) {
-      callback(null, true);
-    } else {
-      console.warn("Bloqueado por CORS policy:", origin);
-      callback(new Error("Acesso bloqueado por CORS policy"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+const rawAllowed = process.env.ALLOWED_ORIGINS || "";
+const allowedOrigins = rawAllowed
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean)
+  .map((o) => o.replace(/\/$/, "")); // remove trailing slash
+// Normalize origins to ensure exact matches, adding scheme if missing
+const normalizeOrigin = (o) => {
+  try {
+    if (!/^https?:\/\//i.test(o)) return new URL("https://" + o).origin;
+    return new URL(o).origin;
+  } catch (e) {
+    return o;
+  }
 };
+// When no scheme is present, add both https and http variants for flexibility
+const allowedOriginsSet = new Set(
+  allowedOrigins.flatMap((orig) => {
+    if (!/^https?:\/\//i.test(orig)) {
+      // add both https and http
+      return [
+        normalizeOrigin(`https://${orig}`),
+        normalizeOrigin(`http://${orig}`),
+      ];
+    }
+    return [normalizeOrigin(orig)];
+  })
+);
+const allowAllOrigins =
+  rawAllowed.trim() === "*" || allowedOrigins.length === 0;
+
+let corsOptions;
+if (allowAllOrigins) {
+  console.log("CORS: Allowing all origins (ALLOWED_ORIGINS not set or '*')");
+  corsOptions = {
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  };
+} else {
+  const publicOrigin = (() => {
+    try {
+      return process.env.PUBLIC_API_URL
+        ? new URL(process.env.PUBLIC_API_URL).origin
+        : undefined;
+    } catch (e) {
+      return undefined;
+    }
+  })();
+  console.log("CORS: Allowed origins:", Array.from(allowedOriginsSet));
+  if (publicOrigin) console.log("CORS: PUBLIC_API_URL origin:", publicOrigin);
+  corsOptions = {
+    origin: function (origin, callback) {
+      if (origin === undefined) {
+        // Non-browser clients (curl, server-side) won't set Origin; allow them
+        callback(null, true);
+        return;
+      }
+      const cleanOrigin = origin.trim();
+      const normalizedOrigin = normalizeOrigin(cleanOrigin);
+      if (
+        allowedOriginsSet.has(normalizedOrigin) ||
+        (publicOrigin && normalizedOrigin === publicOrigin) ||
+        Array.from(allowedOriginsSet).some((o) => normalizedOrigin.endsWith(o))
+      ) {
+        callback(null, true);
+      } else {
+        console.warn("Bloqueado por CORS policy:", normalizedOrigin);
+        callback(new Error("Acesso bloqueado por CORS policy"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  };
+}
 
 const app = express();
 app.use(express.json({ limit: "20mb" }));
