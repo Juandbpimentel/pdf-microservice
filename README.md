@@ -11,7 +11,7 @@ Microserviço escolhido para o Trabalho 2 de Reuso de Software (UFC Quixadá). I
 
 ## Visão técnica
 
-- **Stack:** Node.js + Express, Handlebars para templates, Puppeteer para renderização PDF, Redis para lock, Winston para logging, Swagger UI em `/api-docs`.
+- **Stack:** Node.js + Express, Handlebars para templates, Puppeteer para renderização PDF, Redis para lock, Winston para logging, Swagger UI em `/docs`.
 - **Padrões de resiliência:** retry configurável (`MAX_RETRIES`) na geração de PDF; Puppeteer headless com `--no-sandbox`; chave `lock:<hash>` no Redis para impedir processamento duplicado.
 - **Idempotência e concorrência:** hash determinístico do payload (`templateName`, `data` e `fileName` opcional), lock com TTL e liberação ao final da requisição.
 - **Variabilidade:** partials componentes reutilizáveis e templates específicos (certificado/relatório/contrato) + `builder` para montar seções livres.
@@ -20,14 +20,14 @@ Microserviço escolhido para o Trabalho 2 de Reuso de Software (UFC Quixadá). I
 
 - Recebe JSON com `templateName`, `data` e opcional `fileName`, compila o Handlebars e retorna o PDF binário.
 - Suporta gráficos (Chart.js) e QR Codes (node-qrcode) gerados no controller e injetados como base64 nos templates.
-- Logging estruturado com Winston; inspeção interativa da API em `/api-docs`.
+- Logging estruturado com Winston; inspeção interativa da API em `/docs`.
 
 ## Como rodar rapidamente
 
 1. `npm install`
 2. Suba um Redis (ex.: `docker run -d --name pdf-redis -p 6379:6379 redis:latest`).
 3. Crie `.env` com pelo menos `PORT` e `REDIS_URL` (veja exemplos em `DOCUMENTATION.md`).
-4. `npm start` e acesse `/api-docs` para testar.
+4. `npm start` e acesse `/docs` para testar.
 
 ## Endpoint principal
 
@@ -40,7 +40,7 @@ Microserviço escolhido para o Trabalho 2 de Reuso de Software (UFC Quixadá). I
 
 ## Mais detalhes
 
-Consulte `DOCUMENTATION.md` para payloads completos, propriedades dos componentes/templates, variáveis de ambiente e exemplos adicionais.
+Consulte [`DOCUMENTATION.md`](./DOCUMENTATION.md) para payloads completos, propriedades dos componentes/templates, variáveis de ambiente e exemplos adicionais.
 
 ## Autores
 

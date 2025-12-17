@@ -19,6 +19,14 @@
             padding: 0;  /* Removemos o padding fixo de 40px para respeitar a @page */
         }
 
+        /* --- TRATAMENTO GLOBAL DE OVERFLOW / QUEBRA DE LINHA --- */
+        * { box-sizing: border-box; }
+        body { overflow-wrap: anywhere; word-wrap: break-word; }
+        p, span, div, li, td, th { overflow-wrap: anywhere; word-wrap: break-word; }
+        pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+        table { width: 100%; table-layout: fixed; }
+        img { max-width: 100%; height: auto; }
+
         /* Classes Utilitárias */
         .spacer { height: 20px; }
         .text-content { line-height: 1.6; text-align: justify; margin-bottom: 20px; }

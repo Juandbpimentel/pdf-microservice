@@ -1,0 +1,18 @@
+<div
+  class="comp-foto"
+  style="margin-bottom: 15px; text-align: {{alinhamento}};"
+>
+  {{#if titulo}}
+    <h3 style="margin-bottom: 5px;">{{titulo}}</h3>
+  {{/if}}
+  <div style="margin: 8px 0;">
+    <img
+      src="{{conteudo}}"
+      alt="{{titulo}}"
+      style="width: {{#if largura}}{{largura}}{{else}}100%{{/if}}; max-width:100%; height:auto; display:inline-block;"
+    />
+  </div>
+  {{#if legenda}}
+    <div style="color:#666; font-size:12px;">{{legenda}}</div>
+  {{/if}}
+</div>

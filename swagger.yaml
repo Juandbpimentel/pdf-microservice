@@ -1,51 +1,240 @@
-openapi: 3.0.0
+openapi: 3.0.1
 info:
-  title: PDF Generator Microservice (Mini-LPS)
-  description: Serviço reutilizável de geração de documentos. Suporta variabilidade via templates (Handlebars) e dados JSON.
+  title: PDF Microservice – Guia de Uso
+  description: |
+    Serviço HTTP para gerar PDFs a partir de templates Handlebars. 
+    Recebe JSON, compila HTML, renderiza com Puppeteer e devolve o PDF.
+    
+    **Principais Recursos:**
+    - **Templates**: Arquivos `.hbs` pré-definidos ou modo `builder` para construção livre.
+    - **Idempotência**: Lock distribuído via Redis (TTL 30s) baseado no hash do payload.
+    - **Resiliência**: Retry automático (default 3x) em caso de falhas de renderização.
   version: 1.0.0
+
+# A URL do servidor será injetada dinamicamente pelo index.js se a env PUBLIC_API_URL existir.
+# Caso contrário, usa o localhost.
 servers:
   - url: http://localhost:3000
     description: Servidor Local
+
 paths:
   /generate-pdf:
     post:
-      summary: Gera PDF dinâmico
-      description: Recebe o nome do template e os dados em JSON, compila o HTML e retorna o PDF. Implementa padrão Retry para resiliência.
+      summary: Gerar PDF
+      description: |
+        Recebe o nome do template e os dados (data), compila e retorna um binário PDF.
+        Implementa verificação de duplicidade via Redis (retorna 429 se processando o mesmo payload).
+      tags:
+        - Geração de Documentos
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              required:
-                - templateName
-                - data
-              properties:
-                templateName:
-                  type: string
-                  example: "relatorio"
-                  description: "Nome do arquivo .hbs na pasta templates (sem extensão)."
-                fileName:
-                  type: string
-                  example: "meu-documento-final.pdf"
-                  description: "Opcional. Nome do arquivo PDF gerado (será sanitizado e forçado .pdf)."
-                data:
-                  type: object
-                  description: "Objeto JSON com os dados variáveis do documento."
-                  example:
-                    clienteNome: "Empresa Solar LTDA"
-                    valor: "1.500,00"
+              $ref: '#/components/schemas/PdfRequest'
+            examples:
+              1_Builder_Generico:
+                summary: 1. Modo Builder (Livre)
+                description: Cria um PDF compondo seções (texto, tabela, gráfico, QR code) dinamicamente.
+                value:
+                  templateName: "builder"
+                  fileName: "meu-documento-customizado.pdf"
+                  data:
+                    layout:
+                      margemCima: 20
+                      margemBaixo: 20
+                      margemEsquerda: 20
+                      margemDireita: 20
+                    secoes:
+                      - componente: "texto"
+                        conteudo: "<h1>Relatório Dinâmico</h1><p>Gerado via API Builder.</p>"
+                        alinhamento: "center"
+                      - componente: "grafico"
+                        config:
+                          type: "bar"
+                          data:
+                            labels: ["Jan", "Fev", "Mar"]
+                            datasets:
+                              - label: "Vendas"
+                                data: [12, 19, 3]
+                                backgroundColor: "rgba(54, 162, 235, 0.5)"
+                      - componente: "qrcode"
+                        conteudo: "https://github.com/gabrielalves-dev"
+                        titulo: "Escaneie para acessar"
+              
+              2_Certificado:
+                summary: 2. Template Certificado
+                description: Template paisagem com borda dupla e tipografia clássica.
+                value:
+                  templateName: "certificado"
+                  fileName: "certificado-conclusao.pdf"
+                  data:
+                    alunoNome: "Juan Pimentel"
+                    cursoTitulo: "Arquitetura de Microsserviços com Node.js"
+                    cargaHoraria: "40 horas"
+                    codigoValidacao: "CERT-2025-XYZ"
+                    listaAssinantes:
+                      - nome: "Gabriel Alves"
+                        cargo: "Instrutor Lead"
+                      - nome: "Universidade Federal"
+                        cargo: "Diretoria Acadêmica"
+
+              3_Contrato:
+                summary: 3. Template Contrato
+                description: Contrato formal com cabeçalho corporativo e cláusulas legais.
+                value:
+                  templateName: "contrato"
+                  fileName: "contrato-servicos.pdf"
+                  data:
+                    empresaNome: "Tech Solutions LTDA"
+                    documentoTitulo: "CONTRATO DE PRESTAÇÃO DE SERVIÇOS"
+                    referencia: "REF: 2025/001"
+                    dadosCliente:
+                      - label: "CONTRATANTE"
+                        valor: "Empresa Cliente S.A."
+                      - label: "CNPJ"
+                        valor: "00.000.000/0001-91"
+                    servicoDescricao: "Desenvolvimento de API RESTful com integração Redis."
+                    valorTotal: "R$ 15.000,00"
+                    textoLegal: "<p>Cláusula 1ª: O objeto do presente contrato é...</p><p>Cláusula 2ª: O pagamento será efetuado...</p>"
+                    listaAssinantes:
+                      - nome: "Representante Tech"
+                        cargo: "Diretor"
+                        documento: "CPF: 123.456.789-00"
+                      - nome: "Cliente S.A."
+                        cargo: "Gerente de Projetos"
+
+              4_Relatorio:
+                summary: 4. Template Relatório
+                description: Relatório financeiro com tabela de lançamentos e totais.
+                value:
+                  templateName: "relatorio"
+                  fileName: "relatorio-financeiro.pdf"
+                  data:
+                    empresaNome: "Minha Empresa"
+                    documentoTitulo: "RELATÓRIO MENSAL"
+                    referencia: "JAN/2025"
+                    dadosCliente:
+                      - label: "Cliente"
+                        valor: "João Silva"
+                    lancamentos:
+                      - data: "01/01/2025"
+                        descricao: "Serviço de Consultoria"
+                        valor: "1.200,00"
+                      - data: "15/01/2025"
+                        descricao: "Manutenção de Servidor"
+                        valor: "800,00"
+                    valorTotal: "2.000,00"
+                    statusTexto: "PAGO"
+                    corStatus: "#28a745"
+
+              5_Nota_Fiscal:
+                summary: 5. Template Nota Fiscal
+                description: Layout de NF simples (não fiscal oficial) com QR Code Pix.
+                value:
+                  templateName: "nota_fiscal"
+                  fileName: "nf-001.pdf"
+                  data:
+                    emitente:
+                      - label: "Razão Social"
+                        valor: "Minha Loja LTDA"
+                      - label: "CNPJ"
+                        valor: "12.345.678/0001-90"
+                    destinatario:
+                      - label: "Nome"
+                        valor: "Maria Souza"
+                    itens:
+                      - descricao: "Notebook Dell"
+                        quantidade: "1"
+                        valorUnitario: "3.500,00"
+                        subtotal: "3.500,00"
+                      - descricao: "Mouse Logitech"
+                        quantidade: "2"
+                        valorUnitario: "50,00"
+                        subtotal: "100,00"
+                    totais:
+                      subtotal: "3.600,00"
+                      desconto: "100,00"
+                      total: "3.500,00"
+                    pagamento:
+                      forma: "PIX"
+                      vencimento: "20/12/2025"
+                    observacoes: "Garantia de 12 meses."
+
       responses:
-        200:
+        '200':
           description: PDF gerado com sucesso
           content:
             application/pdf:
               schema:
                 type: string
                 format: binary
-        400:
-          description: Dados inválidos ou faltando
-        404:
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: attachment; filename="documento.pdf"
+        '400':
+          description: Erro de Validação (Faltando templateName ou data)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
           description: Template não encontrado
-        500:
-          description: Erro interno (após 3 tentativas de retry)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Conflito/Lock (Requisição duplicada em processamento)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Esta requisição já está sendo processada. Aguarde."
+                  retryAfter:
+                    type: integer
+                    example: 5
+        '500':
+          description: Erro Interno (Falha no Puppeteer ou Redis após retries)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  requestId:
+                    type: string
+
+components:
+  schemas:
+    PdfRequest:
+      type: object
+      required:
+        - templateName
+        - data
+      properties:
+        templateName:
+          type: string
+          description: Nome do arquivo .hbs na pasta src/templates (sem extensão).
+          enum: [builder, certificado, contrato, relatorio, nota_fiscal]
+        fileName:
+          type: string
+          description: Nome desejado para o arquivo (opcional).
+          example: "meu-arquivo.pdf"
+        data:
+          type: object
+          description: Objeto de dados variáveis. A estrutura depende do templateName escolhido (ver exemplos).
+    
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        requestId:
+          type: string
