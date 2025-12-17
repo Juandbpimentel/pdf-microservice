@@ -1,10 +1,57 @@
 const stringify = require("fast-json-stable-stringify");
 const crypto = require("crypto");
+const fs = require("fs");
+const path = require("path");
 const logger = require("./libs/logger");
 const redisClient = require("./libs/redisClient");
 const { compileTemplate } = require("./libs/templateEngine");
 const { preProcessData } = require("./libs/dataProcessor");
 const { generatePdfWithRetry } = require("./libs/pdfGenerator");
+
+function extractImageUrls(html) {
+  const imageUrls = [];
+  const srcRegex = /src=["']([^"']+)["']/gi;
+  let match;
+
+  while ((match = srcRegex.exec(html)) !== null) {
+    const url = match[1];
+    if (url.includes("/uploads/")) {
+      imageUrls.push(url);
+    }
+  }
+
+  return imageUrls;
+}
+
+function cleanupImages(imageUrls, requestId) {
+  imageUrls.forEach((url) => {
+    try {
+      const urlObj = new URL(url, "http://localhost");
+      const pathname = urlObj.pathname;
+      const filePath = path.join(__dirname, "../public", pathname);
+
+      if (fs.existsSync(filePath)) {
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            logger.warn(`[${requestId}] Falha ao deletar imagem temporária`, {
+              filePath,
+              error: err.message,
+            });
+          } else {
+            logger.debug(`[${requestId}] Imagem temporária deletada`, {
+              filePath,
+            });
+          }
+        });
+      }
+    } catch (error) {
+      logger.warn(`[${requestId}] Erro ao processar URL de imagem`, {
+        url,
+        error: error.message,
+      });
+    }
+  });
+}
 
 module.exports = {
   generatePdf: async (req, res) => {
@@ -29,7 +76,6 @@ module.exports = {
     });
 
     try {
-      // 1. Tenta adquirir lock no Redis (TTL 30s)
       const acquired = await redisClient.set(lockKey, requestId, {
         NX: true,
         EX: 30,
@@ -45,16 +91,18 @@ module.exports = {
         });
       }
 
-      // 2. Pré-processamento de dados (QR Codes, Gráficos)
       const processedData = await preProcessData(data);
-
-      // 3. Compilação do Template
       const html = await compileTemplate(templateName, processedData);
-
-      // 4. Geração do PDF
       const pdfBuffer = await generatePdfWithRetry(html);
 
-      // 5. Resposta
+      const imageUrlsUsed = extractImageUrls(html);
+      if (imageUrlsUsed.length > 0) {
+        logger.info(
+          `[${requestId}] Limpando ${imageUrlsUsed.length} imagem(ns) temporária(s)`
+        );
+        cleanupImages(imageUrlsUsed, requestId);
+      }
+
       const finalFileName = fileName
         ? fileName.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".pdf"
         : `${templateName}.pdf`;
@@ -69,10 +117,9 @@ module.exports = {
       logger.info(`[${requestId}] PDF gerado com sucesso.`);
     } catch (error) {
       logger.error(`[${requestId}] Erro fatal`, { error: error.message });
-      
-      // Se o erro for de template não encontrado, retorna 404
+
       if (error.message.includes("não encontrado")) {
-          return res.status(404).json({ error: error.message });
+        return res.status(404).json({ error: error.message });
       }
 
       res.status(500).json({
@@ -80,7 +127,6 @@ module.exports = {
         requestId,
       });
     } finally {
-      // Remove o lock
       await redisClient.del(lockKey);
     }
   },
