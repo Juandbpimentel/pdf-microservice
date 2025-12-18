@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        body { font-family: 'Helvetica', sans-serif; font-size: 12px; color: #333; padding: 40px; }
+        /* --- CONFIGURAÇÃO DE MARGENS DE IMPRESSÃO --- */
+        @page {
+            margin-top: {{#if layout.margemCima}}{{layout.margemCima}}{{else}}20{{/if}}mm;
+            margin-bottom: {{#if layout.margemBaixo}}{{layout.margemBaixo}}{{else}}20{{/if}}mm;
+            margin-left: {{#if layout.margemEsquerda}}{{layout.margemEsquerda}}{{else}}20{{/if}}mm;
+            margin-right: {{#if layout.margemDireita}}{{layout.margemDireita}}{{else}}20{{/if}}mm;
+        }
+
+        body { margin: 0; padding: 0; font-family: 'Helvetica', sans-serif; font-size: 12px; color: #333; }
+        .page { padding: 20mm; }
 
         /* --- TRATAMENTO GLOBAL DE OVERFLOW / QUEBRA DE LINHA --- */
         * { box-sizing: border-box; }
@@ -25,34 +34,36 @@
     </style>
 </head>
 <body>
-    {{> header_corporativo }}
+    <div class="page">
+        {{> header_corporativo }}
 
-    {{> info_grid tituloSecao="Dados do Cliente" itens=dadosCliente }}
+        {{> info_grid tituloSecao="Dados do Cliente" itens=dadosCliente }}
 
-    <h3>Extrato de Lançamentos</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th style="text-align: right;">Valor (R$)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each lancamentos}}
-            <tr>
-                <td>{{data}}</td>
-                <td>{{descricao}}</td>
-                <td style="text-align: right;">{{valor}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+        <h3>Extrato de Lançamentos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th style="text-align: right;">Valor (R$)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each lancamentos}}
+                <tr>
+                    <td>{{data}}</td>
+                    <td>{{descricao}}</td>
+                    <td style="text-align: right;">{{valor}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
 
-    <div class="summary-box">
-        <p>Saldo Final</p>
-        <div class="big-total">{{valorTotal}}</div>
-        <small>{{statusTexto}}</small>
+        <div class="summary-box">
+            <p>Saldo Final</p>
+            <div class="big-total">{{valorTotal}}</div>
+            <small>{{statusTexto}}</small>
+        </div>
     </div>
 </body>
 </html>

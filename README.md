@@ -1,4 +1,4 @@
-# PDF Generator Microservice (Mini-LPS)
+# PDF Generator Microservice
 
 Microserviço escolhido para o Trabalho 2 de Reuso de Software (UFC Quixadá). Implementa geração de PDFs a partir de templates Handlebars, com resiliência e controle de concorrência, visando reuso em diferentes domínios.
 

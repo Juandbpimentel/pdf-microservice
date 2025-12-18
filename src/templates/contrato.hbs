@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        body { font-family: 'Helvetica', sans-serif; color: #333; padding: 40px; }
+        /* --- CONFIGURAÇÃO DE MARGENS DE IMPRESSÃO (compatível com template builder) --- */
+        @page {
+            margin-top: {{#if layout.margemCima}}{{layout.margemCima}}{{else}}20{{/if}}mm;
+            margin-bottom: {{#if layout.margemBaixo}}{{layout.margemBaixo}}{{else}}20{{/if}}mm;
+            margin-left: {{#if layout.margemEsquerda}}{{layout.margemEsquerda}}{{else}}20{{/if}}mm;
+            margin-right: {{#if layout.margemDireita}}{{layout.margemDireita}}{{else}}20{{/if}}mm;
+        }
+
+        body {
+            font-family: 'Helvetica', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0; /* respeita @page */
+        }
+
+        .page { padding: 20mm; } /* Conteúdo interno: respeita margens de impressão */
 
         /* --- TRATAMENTO GLOBAL DE OVERFLOW / QUEBRA DE LINHA --- */
         * { box-sizing: border-box; }
@@ -17,23 +32,21 @@
     </style>
 </head>
 <body>
+    <div class="page">
+        {{> header_corporativo }}
 
-    {{> header_corporativo }}
+        {{> info_grid tituloSecao="Dados do Contratante" itens=dadosCliente }}
 
-    {{> info_grid tituloSecao="Dados do Contratante" itens=dadosCliente }}
+        <div class="content">
+            <h3>Objeto do Contrato</h3>
+            <p>
+                Pelo presente instrumento particular, a CONTRATADA compromete-se a prestar serviços de 
+                <strong>{{servicoDescricao}}</strong> pelo valor total de <strong>{{valorTotal}}</strong>.
+            </p>
+            {{{textoLegal}}}
+        </div>
 
-    <div class="content">
-        <h3>Objeto do Contrato</h3>
-        <p>
-            Pelo presente instrumento particular, a CONTRATADA compromete-se a prestar serviços de 
-            <strong>{{servicoDescricao}}</strong> pelo valor total de <strong>{{valorTotal}}</strong>.
-        </p>
-        <p>
-            {{textoLegal}}
-        </p>
+        {{> assinaturas assinantes=listaAssinantes }}
     </div>
-
-    {{> assinaturas assinantes=listaAssinantes }}
-
 </body>
 </html>

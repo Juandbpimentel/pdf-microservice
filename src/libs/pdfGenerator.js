@@ -3,7 +3,7 @@ const retry = require("async-retry");
 
 async function generatePdfWithRetry(htmlContent) {
   return await retry(
-    async (bail) => {
+    async (_bail) => {
       let browser;
       try {
         browser = await puppeteer.launch({

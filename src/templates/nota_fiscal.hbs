@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        body { font-family: 'Helvetica', Arial, sans-serif; color: #333; padding: 30px; }
+        /* --- CONFIGURAÇÃO DE MARGENS DE IMPRESSÃO --- */
+        @page {
+            margin-top: {{#if layout.margemCima}}{{layout.margemCima}}{{else}}20{{/if}}mm;
+            margin-bottom: {{#if layout.margemBaixo}}{{layout.margemBaixo}}{{else}}20{{/if}}mm;
+            margin-left: {{#if layout.margemEsquerda}}{{layout.margemEsquerda}}{{else}}20{{/if}}mm;
+            margin-right: {{#if layout.margemDireita}}{{layout.margemDireita}}{{else}}20{{/if}}mm;
+        }
+
+        body { margin: 0; padding: 0; font-family: 'Helvetica', Arial, sans-serif; color: #333; }
+        .page { padding: 20mm; }
 
         /* --- TRATAMENTO GLOBAL DE OVERFLOW / QUEBRA DE LINHA --- */
         * { box-sizing: border-box; }
@@ -33,95 +42,97 @@
     </style>
 </head>
 <body>
-    {{> header_corporativo }}
+    <div class="page">
+        {{> header_corporativo }}
 
-    <div class="grid">
-        <div class="card">
-            <h3>Emitente</h3>
-            {{#each emitente}}
-            <div class="line"><span class="label">{{label}}</span><span>{{valor}}</span></div>
-            {{/each}}
-        </div>
-        <div class="card">
-            <h3>Destinatário</h3>
-            {{#each destinatario}}
-            <div class="line"><span class="label">{{label}}</span><span>{{valor}}</span></div>
-            {{/each}}
-        </div>
-    </div>
-
-    <div class="card">
-        <h3>Itens</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th>Qtd</th>
-                    <th>Unitário</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each itens}}
-                <tr>
-                    <td>{{descricao}}</td>
-                    <td>{{quantidade}}</td>
-                    <td>{{valorUnitario}}</td>
-                    <td>{{subtotal}}</td>
-                </tr>
+        <div class="grid">
+            <div class="card">
+                <h3>Emitente</h3>
+                {{#each emitente}}
+                <div class="line"><span class="label">{{label}}</span><span>{{valor}}</span></div>
                 {{/each}}
-            </tbody>
-        </table>
-    </div>
-
-    <div class="totals">
-        <div class="total-box">
-            <div class="label">Subtotal</div>
-            <div class="value">{{totais.subtotal}}</div>
-        </div>
-        {{#if totais.desconto}}
-        <div class="total-box">
-            <div class="label">Desconto</div>
-            <div class="value">- {{totais.desconto}}</div>
-        </div>
-        {{/if}}
-        {{#if totais.frete}}
-        <div class="total-box">
-            <div class="label">Frete</div>
-            <div class="value">{{totais.frete}}</div>
-        </div>
-        {{/if}}
-        {{#if totais.impostos}}
-        <div class="total-box">
-            <div class="label">Impostos</div>
-            <div class="value">{{totais.impostos}}</div>
-        </div>
-        {{/if}}
-        <div class="total-box">
-            <div class="label">Total</div>
-            <div class="value">{{totais.total}}</div>
-        </div>
-    </div>
-
-    <div class="payment">
-        <div><strong>Forma de pagamento:</strong> {{pagamento.forma}}</div>
-        {{#if pagamento.vencimento}}<div><strong>Vencimento:</strong> {{pagamento.vencimento}}</div>{{/if}}
-        {{#if pagamento.status}}<div><strong>Status:</strong> {{pagamento.status}}</div>{{/if}}
-        {{#if pagamento.pixCodigo}}
-            <div class="qr">
-                {{#if pagamento.pixQrCodeDataUrl}}
-                    <img src="{{pagamento.pixQrCodeDataUrl}}" alt="QR Code" />
-                {{/if}}
-                <div style="font-size: 11px; color: #555; word-break: break-all; margin-top: 8px;">{{pagamento.pixCodigo}}</div>
             </div>
-        {{/if}}
-    </div>
+            <div class="card">
+                <h3>Destinatário</h3>
+                {{#each destinatario}}
+                <div class="line"><span class="label">{{label}}</span><span>{{valor}}</span></div>
+                {{/each}}
+            </div>
+        </div>
 
-    <div class="footer-note">
-        {{#if observacoes}}
-            <div><strong>Observações:</strong> {{observacoes}}</div>
-        {{/if}}
-        <div>Documento gerado em {{dataAtual}}.</div>
+        <div class="card">
+            <h3>Itens</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Qtd</th>
+                        <th>Unitário</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each itens}}
+                    <tr>
+                        <td>{{descricao}}</td>
+                        <td>{{quantidade}}</td>
+                        <td>{{valorUnitario}}</td>
+                        <td>{{subtotal}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="totals">
+            <div class="total-box">
+                <div class="label">Subtotal</div>
+                <div class="value">{{totais.subtotal}}</div>
+            </div>
+            {{#if totais.desconto}}
+            <div class="total-box">
+                <div class="label">Desconto</div>
+                <div class="value">- {{totais.desconto}}</div>
+            </div>
+            {{/if}}
+            {{#if totais.frete}}
+            <div class="total-box">
+                <div class="label">Frete</div>
+                <div class="value">{{totais.frete}}</div>
+            </div>
+            {{/if}}
+            {{#if totais.impostos}}
+            <div class="total-box">
+                <div class="label">Impostos</div>
+                <div class="value">{{totais.impostos}}</div>
+            </div>
+            {{/if}}
+            <div class="total-box">
+                <div class="label">Total</div>
+                <div class="value">{{totais.total}}</div>
+            </div>
+        </div>
+
+        <div class="payment">
+            <div><strong>Forma de pagamento:</strong> {{pagamento.forma}}</div>
+            {{#if pagamento.vencimento}}<div><strong>Vencimento:</strong> {{pagamento.vencimento}}</div>{{/if}}
+            {{#if pagamento.status}}<div><strong>Status:</strong> {{pagamento.status}}</div>{{/if}}
+            {{#if pagamento.pixCodigo}}
+                <div class="qr">
+                    {{#if pagamento.pixQrCodeDataUrl}}
+                        <img src="{{pagamento.pixQrCodeDataUrl}}" alt="QR Code" />
+                    {{/if}}
+                    <div style="font-size: 11px; color: #555; word-break: break-all; margin-top: 8px;">{{pagamento.pixCodigo}}</div>
+                </div>
+            {{/if}}
+        </div>
+
+        <div class="footer-note">
+            {{#if observacoes}}
+                <div><strong>Observações:</strong> {{observacoes}}</div>
+            {{/if}}
+            <div>Documento gerado em {{dataAtual}}.</div>
+        </div>
     </div>
 </body>
 </html>
