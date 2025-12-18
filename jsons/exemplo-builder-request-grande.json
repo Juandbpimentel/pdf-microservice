@@ -119,7 +119,7 @@
       {
         "componente": "qrcode",
         "titulo": "Autenticidade Digital",
-        "conteudo": "https://nexus-global.com/validar-doc?hash=abc-123-xyz",
+        "conteudo": "https://www.leagueoflegends.com/pt-br/",
         "legenda": "Aponte a câmera do celular para validar este documento na Blockchain.",
         "alinhamento": "center"
       },

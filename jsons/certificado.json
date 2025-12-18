@@ -2,7 +2,7 @@
   "templateName": "certificado",
   "fileName": "certificado-exemplo.pdf",
   "data": {
-    "logoUrl": "../",
+    "logoUrl": "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/9eb028de391e65072d06e77f06d0955f66b9fa2c-736x316.png?accountingTag=LoL?auto=format&fit=fill&q=80&w=300",
     "alunoNome": "Maria Souza",
     "cursoTitulo": "Formação em Data Science",
     "cargaHoraria": "40h",
