@@ -20,7 +20,7 @@ services:
       PORT: 3000
       REDIS_URL: redis://redis:6379
       # Ajuste conforme necessário
-      ALLOWED_ORIGINS: http://localhost:3000,http://localhost:8080
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:8081,http://localhost:8080}
       JSON_LIMIT: 50mb
       MAX_RETRIES: 3
     ports:
